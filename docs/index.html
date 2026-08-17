@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuRAG API | Production-Ready RAG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .code-block {
+            background: #020617;
+            border: 1px solid #334155;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-6 md:p-12">
+    
+    <main class="w-full max-w-4xl mt-12 flex flex-col gap-12">
+        <!-- Hero Section -->
+        <header class="text-center space-y-6">
+            <h1 class="text-5xl md:text-6xl font-bold tracking-tight">
+                DocuRAG <span class="gradient-text">API</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto">
+                A production-ready FastAPI backend for Retrieval-Augmented Generation. 
+                Built to prevent LLM hallucinations with strict source citations.
+            </p>
+            <div class="flex justify-center gap-4 pt-4">
+                <a href="https://github.com/givemehat/DocuRAG-FastAPI" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition-colors shadow-lg shadow-blue-500/20">
+                    View on GitHub
+                </a>
+                <a href="https://linkedin.com/in/rajnish-singh-a9a61022a" class="px-6 py-3 glass hover:bg-slate-800 text-white font-medium rounded-lg transition-colors">
+                    Hire the Developer
+                </a>
+            </div>
+        </header>
+
+        <!-- Features Grid -->
+        <section class="grid md:grid-cols-3 gap-6 mt-8">
+            <div class="glass p-6 rounded-2xl">
+                <div class="text-blue-400 mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">FastAPI Backend</h3>
+                <p class="text-slate-400 text-sm">Fully asynchronous, strictly typed REST API built for high-throughput enterprise deployments.</p>
+            </div>
+            <div class="glass p-6 rounded-2xl">
+                <div class="text-blue-400 mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Anti-Hallucination</h3>
+                <p class="text-slate-400 text-sm">Automated document chunking with exact source tracking returned in every query response.</p>
+            </div>
+            <div class="glass p-6 rounded-2xl">
+                <div class="text-blue-400 mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Vector Native</h3>
+                <p class="text-slate-400 text-sm">Integrated with ChromaDB for highly efficient, local semantic search and retrieval.</p>
+            </div>
+        </section>
+
+        <!-- Code Example -->
+        <section class="glass rounded-2xl p-6 md:p-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4">
+                <span class="px-3 py-1 bg-blue-900/50 text-blue-300 text-xs rounded-full border border-blue-800/50">Example Response</span>
+            </div>
+            <h2 class="text-2xl font-semibold mb-6">Production API Endpoints</h2>
+            
+            <div class="code-block rounded-xl p-4 md:p-6 font-mono text-sm overflow-x-auto text-green-400">
+<pre><code>{
+  "query": "What are the termination conditions in the legal contract?",
+  "answer": "The contract may be terminated by either party with a 30-day written notice...",
+  "sources": [
+    "uploaded_docs/vendor_agreement_v2.pdf (Page 4)",
+    "uploaded_docs/vendor_agreement_v2.pdf (Page 5)"
+  ],
+  "latency_ms": 412
+}</code></pre>
+            </div>
+        </section>
+        
+        <footer class="text-center text-slate-500 pt-8 pb-12">
+            <p>Built with 🧠 by Rajnish Singh for modern AI engineering teams.</p>
+        </footer>
+    </main>
+</body>
+</html>
