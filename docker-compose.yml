@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  docurag-api:
+    build: .
+    container_name: docurag_fastapi
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./uploaded_docs:/app/uploaded_docs

@@ -2,30 +2,31 @@
 
 A production-ready Retrieval-Augmented Generation (RAG) backend built with **FastAPI**, **LangChain**, and **ChromaDB**.
 
-This project demonstrates how to move beyond basic LangChain scripts to a scalable REST API architecture suitable for AI agents and enterprise applications. It includes document chunking, embeddings, vector storage, and an OpenAI-powered query endpoint.
+This project demonstrates how to move beyond basic LangChain scripts to a highly scalable, async REST API architecture suitable for enterprise applications.
 
-## Features
-- **FastAPI Backend:** Fully asynchronous, typed, and auto-documented (Swagger UI).
-- **Document Processing:** Handles PDF and TXT uploads with automated text splitting.
-- **Local Vector Store:** Uses ChromaDB for fast, local embedding retrieval.
-- **LangChain Integration:** Utilizes LangChain's latest `create_retrieval_chain` architecture.
-- **Source Tracking:** Returns exact document sources used to formulate answers to prevent hallucinations.
+## Production-Grade Features (v2.0)
+- **Advanced Application Lifecycles**: Initializes the Vector Store (Chroma) and LLMs via FastAPI's `@asynccontextmanager lifespan`, ensuring they are loaded into memory exactly once at server startup (prevents connection thrashing).
+- **Dependency Injection**: Utilizes FastAPI's `Depends()` to inject the global database and LLM connections into route handlers safely and cleanly.
+- **Strict Configuration**: Uses `pydantic-settings` to strictly enforce environment variables at startup, preventing runtime crashes.
+- **Asynchronous File I/O**: Upload endpoints use `aiofiles` to save document streams asynchronously without blocking the main event loop, allowing for high concurrent throughput.
+- **Anti-Hallucination via MMR**: Upgraded the retriever to use Maximal Marginal Relevance (`search_type="mmr"`) to ensure the LLM receives diverse, highly relevant chunks, while strictly citing the exact source documents in the response.
 
 ## Tech Stack
 - **Python 3.10+**
 - **FastAPI** & Uvicorn
-- **LangChain** (Core, Community, OpenAI)
+- **LangChain**
 - **ChromaDB**
 - **OpenAI API** (`gpt-3.5-turbo` & `text-embedding-3-small`)
+- **Pydantic v2**
 
 ## Quickstart
 
 ### 1. Clone & Setup
 ```bash
-git clone https://github.com/yourusername/DocuRAG-FastAPI.git
+git clone https://github.com/givemehat/DocuRAG-FastAPI.git
 cd DocuRAG-FastAPI
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -33,7 +34,7 @@ pip install -r requirements.txt
 Copy the example env file and add your OpenAI key:
 ```bash
 cp .env.example .env
-# Edit .env with your OPENAI_API_KEY
+# Edit .env and set OPENAI_API_KEY=your_key_here
 ```
 
 ### 3. Run the Server
@@ -43,28 +44,5 @@ uvicorn main:app --reload
 The API will be available at `http://localhost:8000`.
 View the Swagger documentation at `http://localhost:8000/docs`.
 
-## API Endpoints
-
-### `POST /api/upload`
-Uploads a document, chunks it, embeds it, and stores it in ChromaDB.
-- **Body:** `multipart/form-data` containing `file` (.pdf or .txt)
-
-### `POST /api/query`
-Queries the vector database and generates an answer using an LLM.
-- **Body:** `{"query": "What is the document about?"}`
-- **Response:**
-```json
-{
-  "answer": "The document describes...",
-  "sources": ["./uploaded_docs/example.pdf"]
-}
-```
-
-## Why this architecture?
-Many AI projects fail when moving to production because they are built as monolithic scripts. By wrapping the RAG pipeline in FastAPI:
-- We can decouple the AI logic from the frontend (React/Next.js/SwiftUI).
-- We gain built-in data validation via Pydantic.
-- We can easily scale horizontally in a Dockerized environment (e.g., AWS ECS or Kubernetes).
-
 ---
-*Built by Rajnish Singh.*
+*Architected by Rajnish Singh.*

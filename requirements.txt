@@ -1,6 +1,7 @@
 fastapi
 uvicorn
 pydantic
+pydantic-settings
 langchain
 langchain-community
 langchain-openai
@@ -9,3 +10,4 @@ chromadb
 python-dotenv
 pypdf
 tiktoken
+aiofiles
